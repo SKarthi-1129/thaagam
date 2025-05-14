@@ -1,0 +1,27 @@
+{% extends 'core/base.html' %}
+{% load widget_tweaks%}
+{% block title %}Create Post{% endblock %}
+{% block content %}
+
+<h2 class="mb-4">Create a New Post</h2>
+
+<form method="post" enctype="multipart/form-data" class="card shadow-sm p-4">
+    {% csrf_token %}
+    {% if form.errors %}
+    <div class="alert alert-danger">
+        <ul>
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+    {{ form.as_p}}
+    
+    <button type="submit" class="btn btn-primary">Post</button>
+    <a href="{% url 'home' %}" class="btn btn-secondary">Cancel</a>
+</form>
+
+{% endblock %}
